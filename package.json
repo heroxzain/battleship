@@ -1,0 +1,32 @@
+{
+  "name": "battleship",
+  "version": "1.0.0",
+  "description": "This Game has been made as part of The Odin Project Carriculum",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest",
+    "watch": "jest --watch ./src/Gameboard*.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/heroxzain/battleship.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/heroxzain/battleship/issues"
+  },
+  "homepage": "https://github.com/heroxzain/battleship#readme",
+  "devDependencies": {
+    "@babel/preset-env": "^7.29.3",
+    "css-loader": "^7.1.4",
+    "html-loader": "^5.1.0",
+    "html-webpack-plugin": "^5.6.7",
+    "jest": "^30.3.0",
+    "style-loader": "^4.0.0",
+    "webpack": "^5.106.2",
+    "webpack-cli": "^7.0.2",
+    "webpack-dev-server": "^5.2.3"
+  }
+}
