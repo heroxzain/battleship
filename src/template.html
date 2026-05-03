@@ -6,6 +6,34 @@
     <title>BattleShip</title>
 </head>
 <body>
-    
+    <header class="game-header">
+        <h1 class="logo">Battleship</h1>
+    </header>
+
+    <main class="game-container">
+        <div class="status-display">
+            <h2 id="game-status">Place your ships to begin!</h2>
+        </div>
+
+        <div class="boards-container">
+            <div class="board-wrapper">
+                <h3 class="board-title">You</h3>
+                <div id="player-board" class="game-board"></div> 
+            </div>
+
+            <div class="board-wrapper">
+                <h3 class="board-title">Enemy Waters</h3>
+                <div id="computer-board" class="game-board"></div>
+            </div>
+        </div>
+
+        <div class="controls">
+            <button id="start-btn" class="primary-btn">Start</button>
+        </div>
+    </main>
+
+    <footer class="game-footer">
+        <p>Made with ❤️ by HEROxZAIN for The Odin Project</p>
+    </footer>
 </body>
 </html>

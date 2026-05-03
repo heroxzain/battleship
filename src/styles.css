@@ -1,4 +1,21 @@
-/* styles.css */
-body {
-  background-color: rebeccapurple;
+:root {
+  /* Main Layout */
+  --bg-hero: #F8F9FA; /* 60% - Very light, clean grey */
+  --bg-header-footer: #FFFFFF;
+  --text-main: #2C3E50;
+  --logo-gradient: linear-gradient(90deg, #2C3E50, #2ECC71);
+  
+  /* The 30% - Your Ships and Safe Zones */
+  --color-ship: #2ECC71; /* Vibrant tactical green */
+  --bg-board: #FFFFFF;
+  --grid-lines: #E0E4E8;
+  --cell-empty: #F1F4F6;
+  
+  /* The 10% - High Contrast Action */
+  --color-hit: #E74C3C; /* Punchy crimson */
+  --color-miss: #BDC3C7; /* Muted grey for misses */
+  --btn-start-bg: #E74C3C;
+  --btn-start-hover: #C0392B;
+  --btn-text: #FFFFFF;
 }
+
