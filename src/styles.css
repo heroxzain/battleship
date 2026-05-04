@@ -1,21 +1,175 @@
 :root {
-  /* Main Layout */
-  --bg-hero: #F8F9FA; /* 60% - Very light, clean grey */
+  --bg-hero: #F8F9FA; 
   --bg-header-footer: #FFFFFF;
   --text-main: #2C3E50;
   --logo-gradient: linear-gradient(90deg, #2C3E50, #2ECC71);
   
-  /* The 30% - Your Ships and Safe Zones */
-  --color-ship: #2ECC71; /* Vibrant tactical green */
+  --color-ship: #2ECC71; 
   --bg-board: #FFFFFF;
   --grid-lines: #E0E4E8;
   --cell-empty: #F1F4F6;
   
-  /* The 10% - High Contrast Action */
-  --color-hit: #E74C3C; /* Punchy crimson */
-  --color-miss: #BDC3C7; /* Muted grey for misses */
+  --color-hit: #E74C3C; 
+  --color-miss: #BDC3C7; 
   --btn-start-bg: #E74C3C;
   --btn-start-hover: #C0392B;
   --btn-text: #FFFFFF;
+
+  --header: 4rem;
+  --footer: 2.5rem;
+  --main: calc(100vh - calc(var(--header) + var(--footer)));
 }
 
+/* :root {
+  --bg-hero: #F0F4F8; 
+  --bg-header-footer: #FFFFFF;
+  --text-main: #102A43;
+  --logo-gradient: linear-gradient(90deg, #102A43, #3498DB);
+  
+  --color-ship: #3498DB; 
+  --bg-board: #FFFFFF;
+  --grid-lines: #D9E2EC;
+  --cell-empty: #E2E8F0;
+  
+  --color-hit: #FF5722; 
+  --color-miss: #9FB3C8; 
+  --btn-start-bg: #FF5722;
+  --btn-start-hover: #E64A19;
+  --btn-text: #FFFFFF;
+}  */
+
+/* :root {
+  --bg-hero: #FFFFFF; 
+  --bg-header-footer: #FAFAFA;
+  --text-main: #222222;
+  --logo-gradient: linear-gradient(90deg, #222222, #555555);
+  
+  --color-ship: #4A4A4A;
+  --bg-board: #FAFAFA;
+  --grid-lines: #CCCCCC;
+  --cell-empty: #FFFFFF;
+  
+  --color-hit: #D0021B;
+  --color-miss: #EFEFEF; 
+  --btn-start-bg: #222222;
+  --btn-start-hover: #000000;
+  --btn-text: #FFFFFF;
+} */
+
+* {
+  /* border: 2px solid red; */
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--bg-hero);
+  color: var(--text-main);
+  font-family: "Helvetica", sans-serif;
+}
+
+header {
+  width: 100%;
+  height: var(--header);
+  background-color: var(--bg-header-footer);
+  display: flex;
+  align-items: center;
+  padding: 0 2rem;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05); 
+}
+
+.logo {
+  width: 30%;
+  font-family: "Henny Penny", cursive;
+  font-size: 2.25rem;
+  background: var(--logo-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-align: center;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center; 
+  width: 100%;
+  height: var(--main);
+  padding: 1.2rem;
+}
+
+.status-display {
+  margin-bottom: 1rem;
+  font-size: 1rem;
+}
+
+.boards-container {
+  width: 100%;
+  max-width: 1200px;
+  display: flex;
+  justify-content: space-around;
+  gap: 2rem;
+}
+
+.board-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.game-board {
+  display: grid;
+  grid-template: repeat(10, 4.6vmin) / repeat(10, 4.6vmin); 
+  background-color: var(--grid-lines); 
+  gap: 1px; 
+  border: 2px solid var(--text-main);
+}
+
+.game-board div {
+  background-color: var(--cell-empty);
+  cursor: crosshair;
+}
+
+.game-board div.ship {
+  background-color: var(--color-ship);
+}
+
+.game-board div.hit {
+  background-color: var(--color-hit);
+}
+
+.game-board div.missed {
+  background-color: var(--color-miss);
+}
+
+.controls {
+  margin-top: auto; 
+}
+
+button {
+  width: 7.5rem;
+  height: 2.2rem;
+  background-color: var(--btn-start-bg);
+  color: var(--btn-text);
+  border: none;
+  border-radius: 0.25rem;
+  font-size: 1.2rem;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: var(--btn-start-hover);
+}
+
+footer {
+  width: 100%;
+  height: var(--footer);
+  background-color: var(--bg-header-footer);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.875rem;
+  box-shadow: 0 -2px 5px rgba(0,0,0,0.05); 
+}
