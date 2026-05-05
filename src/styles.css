@@ -75,7 +75,6 @@ header {
   background-color: var(--bg-header-footer);
   display: flex;
   align-items: center;
-  padding: 0 2rem;
   box-shadow: 0 2px 5px rgba(0,0,0,0.05); 
 }
 
@@ -99,7 +98,9 @@ main {
 }
 
 .status-display {
-  margin-bottom: 1rem;
+  position: absolute;
+  width: 100%;
+  text-align: center;
   font-size: 1rem;
 }
 
@@ -108,7 +109,7 @@ main {
   max-width: 1200px;
   display: flex;
   justify-content: space-around;
-  gap: 2rem;
+  gap: 1rem;
 }
 
 .board-wrapper {
@@ -120,7 +121,7 @@ main {
 
 .game-board {
   display: grid;
-  grid-template: repeat(10, 4.6vmin) / repeat(10, 4.6vmin); 
+  grid-template: repeat(10, 5vmin) / repeat(10, 5vmin); 
   background-color: var(--grid-lines); 
   gap: 1px; 
   border: 2px solid var(--text-main);

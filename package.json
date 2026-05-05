@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "jest",
-    "watch": "jest --watch ./src/Gameboard*.js"
+    "watch": "jest --watch ./src/*.js"
   },
   "repository": {
     "type": "git",
