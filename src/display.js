@@ -15,8 +15,10 @@ function createGrid() {
     });
 }
 
-function createCell(type, player = false) {
+function createCell(type, i, j, player = false) {
     const div = document.createElement("div");
+    div.dataset.row = i;
+    div.dataset.column = j;
     if (type === -1) 
         div.classList.add("missed");
     else if (type === 0) 
@@ -26,24 +28,26 @@ function createCell(type, player = false) {
     return div;
 }
 
-function displayGameBoard(type, gameBoard) {
+function displayGameBoard(type, gameBoard, playRound = false) {
     makeBoardEmpty(type);
     const displayBoard = document.querySelector(`#${type}`);
     for (let i = 0; i < 10; i++) {
         for (let j = 0; j < 10; j++) {
-            const div = createCell(gameBoard[i][j], type === "player-board");
+            const div = createCell(gameBoard[i][j], i, j, type === "player-board");
+            if (typeof playRound === "function") 
+                div.addEventListener("click", playRound);
             displayBoard.appendChild(div);
         }
     }
 }
 
 function createShips(board) {
-    // const sorted = [];
-    // for (let x = 1; x <= 10; x++) {
-    //     for (let y = 1; y <= 10; y++) {
-    //         sorted.push([x, y]);
-    //     }
-    // }
+    const sorted = [];
+    for (let x = 1; x <= 10; x++) {
+        for (let y = 1; y <= 10; y++) {
+            sorted.push([x, y]);
+        }
+    }
 
     // const ships = [];
     // board.forEach(cell => {
@@ -74,4 +78,8 @@ function getShips(id) {
     return ships;
 }
 
-export {createGrid, getShips, displayGameBoard};
+function displayWinner(name) {
+
+}
+
+export {createGrid, getShips, displayGameBoard, displayWinner};
