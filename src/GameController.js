@@ -1,33 +1,38 @@
 import Player from "./Player";
-import { displayGameBoard, displayWinner } from "./display";
+import { displayGameBoard, displayWinner, updateDisplay } from "./display";
 
 export default function GameController(playerShips, computerShips) {
     const humanPlayer = new Player(playerShips);
     const computerPlayer = new Player(computerShips);
     let isPlayerTurn = true;
     
+    const createCoords = (e = false) => {
+        if (!!e) {
+            const x = parseInt(e.target.dataset.row) + 1;
+            const y = parseInt(e.target.dataset.column) + 1;
+            return [x, y];
+        } 
+        return computerPlayer.generateComputerAttack();
+    }
+
     const playRound = (e) => {
         if (!isPlayerTurn) return; // Prevent clicking during computer's turn
-
-        const x = parseInt(e.target.dataset.row) + 1;
-        const y = parseInt(e.target.dataset.column) + 1;
-        const coords = [x, y];
-
+        const coords = createCoords(e);
         computerPlayer.attackTheShip(coords);
-        displayGameBoard("computer-board", computerPlayer.getGameBoard(), playRound);
-
-        if (computerPlayer.checkWinner()) 
-            displayWinner("Player");
-
+        updateDisplay("computer-board", coords, computerPlayer.getGameBoard());
         isPlayerTurn = false;
+        if (computerPlayer.checkWinner()) {
+            displayWinner("Player");
+            return;
+        }
         setTimeout(() => { computerAttack(); }, 1000);
     };
 
     const computerAttack = () => {
-        const coords = computerPlayer.generateComputerAttack();
+        const coords = createCoords();
         humanPlayer.attackTheShip(coords);
-        displayGameBoard("player-board", humanPlayer.getGameBoard());
-        if (humanPlayer.checkWinner()) 
+        updateDisplay("player-board", coords, humanPlayer.getGameBoard());
+        if (humanPlayer.checkWinner())
             displayWinner("Computer");
         isPlayerTurn = true;
     }

@@ -35,9 +35,21 @@ function displayGameBoard(type, gameBoard, playRound = false) {
         for (let j = 0; j < 10; j++) {
             const div = createCell(gameBoard[i][j], i, j, type === "player-board");
             if (typeof playRound === "function") 
-                div.addEventListener("click", playRound);
+                div.addEventListener("click", playRound, {once: true});
             displayBoard.appendChild(div);
         }
+    }
+}
+
+function updateDisplay(type, coords, gameboard) {
+    const row = coords[0] - 1;
+    const col = coords[1] - 1;
+    const cell = document.querySelector(`#${type} [data-row="${row}"][data-column="${col}"]`);
+    const cellState = gameboard[row][col];
+    if (cellState === -1) {
+        cell.classList.add("missed");
+    } else if (cellState === 0) {
+        cell.classList.add("hit");
     }
 }
 
@@ -82,4 +94,10 @@ function displayWinner(name) {
 
 }
 
-export {createGrid, getShips, displayGameBoard, displayWinner};
+export {
+    createGrid, 
+    getShips, 
+    displayGameBoard, 
+    updateDisplay, 
+    displayWinner
+};
