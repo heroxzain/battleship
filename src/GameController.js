@@ -43,13 +43,9 @@ export default function GameController(playerShips, computerShips) {
         displayMessage("Your Turn...");
     }
 
-    const start = (gameStart) => {
-        if (gameStart) {
-            displayGameBoard("player-board", humanPlayer.getGameBoard());
-            displayGameBoard("computer-board", computerPlayer.getGameBoard(), playRound);
-        } else {
-            createGrid();
-        }
+    const start = () => {
+        displayGameBoard("player-board", humanPlayer.getGameBoard());
+        displayGameBoard("computer-board", computerPlayer.getGameBoard(), playRound);
     };
 
     return { start };
