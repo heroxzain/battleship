@@ -35,7 +35,8 @@ function displayGameBoard(type, gameBoard, playRound = false) {
         for (let j = 0; j < 10; j++) {
             const div = createCell(gameBoard[i][j], i, j, type === "player-board");
             if (typeof playRound === "function") 
-                div.addEventListener("click", playRound, {once: true});
+                div.addEventListener("click", playRound);
+                // div.addEventListener("click", playRound, {once: true});
             displayBoard.appendChild(div);
         }
     }
@@ -91,7 +92,14 @@ function getShips(id) {
 }
 
 function displayWinner(name) {
+    if (name === "Player")
+        displayMessage("You Won!");
+    else 
+        displayMessage("You Lose!");
+}
 
+function displayMessage(msg) {
+    document.querySelector("#game-status").textContent = msg;
 }
 
 export {
@@ -99,5 +107,6 @@ export {
     getShips, 
     displayGameBoard, 
     updateDisplay, 
-    displayWinner
+    displayWinner,
+    displayMessage
 };

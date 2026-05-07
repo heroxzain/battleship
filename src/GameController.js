@@ -1,5 +1,11 @@
 import Player from "./Player";
-import { displayGameBoard, displayWinner, updateDisplay } from "./display";
+import { 
+    createGrid,
+    displayGameBoard, 
+    displayMessage, 
+    displayWinner, 
+    updateDisplay 
+} from "./display";
 
 export default function GameController(playerShips, computerShips) {
     const humanPlayer = new Player(playerShips);
@@ -21,10 +27,9 @@ export default function GameController(playerShips, computerShips) {
         computerPlayer.attackTheShip(coords);
         updateDisplay("computer-board", coords, computerPlayer.getGameBoard());
         isPlayerTurn = false;
-        if (computerPlayer.checkWinner()) {
-            displayWinner("Player");
-            return;
-        }
+        if (computerPlayer.checkWinner()) 
+            return displayWinner("Player");
+        displayMessage("Computer is thinking...");
         setTimeout(() => { computerAttack(); }, 1000);
     };
 
@@ -33,13 +38,18 @@ export default function GameController(playerShips, computerShips) {
         humanPlayer.attackTheShip(coords);
         updateDisplay("player-board", coords, humanPlayer.getGameBoard());
         if (humanPlayer.checkWinner())
-            displayWinner("Computer");
+            return displayWinner("Computer");
         isPlayerTurn = true;
+        displayMessage("Your Turn...");
     }
 
-    const start = () => {
-        displayGameBoard("player-board", humanPlayer.getGameBoard());
-        displayGameBoard("computer-board", computerPlayer.getGameBoard(), playRound);
+    const start = (gameStart) => {
+        if (gameStart) {
+            displayGameBoard("player-board", humanPlayer.getGameBoard());
+            displayGameBoard("computer-board", computerPlayer.getGameBoard(), playRound);
+        } else {
+            createGrid();
+        }
     };
 
     return { start };
