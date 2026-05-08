@@ -1,7 +1,7 @@
 import "./styles.css";
-import { createGrid, displayPreview, displayMessage } from "./display";
-import GameController from "./GameController";
-import GenerateShips from "./GenerateShips";
+import { createGrid, displayPreview, displayMessage } from "./Views/display";
+import GameController from "./Controllers/GameController";
+import GenerateShips from "./Controllers/GenerateShips";
 
 let playerShips = GenerateShips();
 let gameStart = false;

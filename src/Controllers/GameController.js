@@ -1,11 +1,11 @@
-import Player from "./Player";
+import Player from "../Models/Player";
 import { 
     createGrid,
     displayGameBoard, 
     displayMessage, 
     displayWinner, 
     updateDisplay 
-} from "./display";
+} from "../Views/display";
 
 export default function GameController(playerShips, computerShips) {
     const humanPlayer = new Player(playerShips);

@@ -51,7 +51,6 @@ function displayGameBoard(type, gameBoard, playRound = false) {
             const div = createCell(gameBoard[i][j], i, j, type === "player-board");
             if (typeof playRound === "function") 
                 div.addEventListener("click", playRound);
-                // div.addEventListener("click", playRound, {once: true});
             displayBoard.appendChild(div);
         }
     }
@@ -88,33 +87,3 @@ export {
     displayWinner,
     displayMessage
 };
-
-
-// function createShips(board, id) {
-//     if (id === "computer-board")
-//         return GenerateShips();
-//     const sorted = [];
-//     for (let x = 1; x <= 10; x++) {
-//         for (let y = 1; y <= 10; y++) {
-//             sorted.push([x, y]);
-//         }
-//     }
-
-//     const ships = [];
-//     board.forEach(cell => {
-//         if (cell.class === "ship") {
-//             ships.push({
-//                 coords: [cell.dataset.row, cell.dataset.column],
-//                 length: cell.size(),
-//                 axis: (cell.size() % 2) ? "y" : "x",
-//             }); // horizontal axis for odd size ships, vertical axis for all even size ships
-//         };
-//     });
-//     return ships;
-// }
-
-// function getShips(id) {
-//     const board = document.querySelector(`#${id}`);
-//     const ships = createShips(board, id);
-//     return ships;
-// }
