@@ -99,9 +99,9 @@ describe("Attacking on Ships on Gameboard", () => {
     board.receiveAttack([3, 3]);
     expect(board.getBoard()).toEqual([
       [null, null, null, null, null, null, null, null, null, null],
-      [null, null, null, null, null, null, null, null, null, null],
-      [null, null, 0, null, null, null, null, null, null, null],
-      [null, null, null, null, null, null, null, null, null, null],
+      [null, -1, -1, -1, null, null, null, null, null, null],
+      [null, -1, 0, -1, null, null, null, null, null, null],
+      [null, -1, -1, -1, null, null, null, null, null, null],
       [null, null, null, null, null, null, null, null, null, null],
       [null, null, null, null, null, null, null, null, null, null],
       [null, null, null, null, null, null, null, null, null, null],
@@ -117,11 +117,32 @@ describe("Attacking on Ships on Gameboard", () => {
     expect(board.getBoard()).toEqual([
       [null, null, null, null, null, null, null, null, null, null],
       [null, null, null, null, null, null, null, null, null, null],
-      [null, null, new Ship(), null, null, null, null, null, null, null],
+      [null, -1, new Ship(), -1, null, null, null, null, null, null],
       [null, null, 0, null, null, null, null, null, null, null],
-      [null, null, new Ship(), null, null, null, null, null, null, null],
+      [null, -1, new Ship(), -1, null, null, null, null, null, null],
       [null, null, new Ship(), null, null, null, null, null, null, null],
       [null, null, null, null, null, null, null, null, null, null],
+      [null, null, null, null, null, null, null, null, null, null],
+      [null, null, null, null, null, null, null, null, null, null],
+      [null, null, null, null, null, null, null, null, null, null],
+    ]);
+  });
+
+  test("Destroying a BattleShip on opposite axis", () => {
+    board.placeShip([3, 3], 4, "y");
+    board.receiveAttack([4, 3]);
+    board.receiveAttack([3, 3]);
+    board.receiveAttack([5, 3]);
+    board.receiveAttack([6, 3]);
+    console.log(board.getBoard())
+    expect(board.getBoard()).toEqual([
+      [null, null, null, null, null, null, null, null, null, null],
+      [null, -1, -1, -1, null, null, null, null, null, null],
+      [null, -1, 0, -1, null, null, null, null, null, null],
+      [null, -1, 0, -1, null, null, null, null, null, null],
+      [null, -1, 0, -1, null, null, null, null, null, null],
+      [null, -1, 0, -1, null, null, null, null, null, null],
+      [null,  -1, -1, -1, null, null, null, null, null, null],
       [null, null, null, null, null, null, null, null, null, null],
       [null, null, null, null, null, null, null, null, null, null],
       [null, null, null, null, null, null, null, null, null, null],
