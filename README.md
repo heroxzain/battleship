@@ -2,9 +2,7 @@
 
 Live Link: https://heroxzain.github.io/battleship
 
-Future Improvements:
-* feat: Add strict spacing (russian spacing) 
-    In GameController.js, modify the code to add the adjacent nodes to visited nodes when placing the ship so it won't pick those nodes again
+## Future Improvements:
 * feat: Auto-miss 
     When hitting or destroying a ship, convert the adjacent pieces to misses (automatically) to save a few clicks
 * fun: Granade/Splash Damage
@@ -15,3 +13,4 @@ Future Improvements:
 * feat: Implement drag and drop 
 * feat: Impelement two players mode
 * feat: Implemnet smart AI
+* fun: add different colors to different ships sizes
