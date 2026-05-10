@@ -23,6 +23,8 @@ export default function GameController(playerShips, computerShips) {
 
     const playRound = (e) => {
         if (!isPlayerTurn) return; // Prevent clicking during computer's turn
+        if (!e.target.dataset.row) return; 
+        if (e.target.classList.contains("hit") || e.target.classList.contains("missed")) return;
         const coords = createCoords(e);
         computerPlayer.attackTheShip(coords);
         updateDisplay("computer-board", coords, computerPlayer.getGameBoard());
