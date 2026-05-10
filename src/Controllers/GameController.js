@@ -27,7 +27,7 @@ export default function GameController(playerShips, computerShips) {
         if (e.target.classList.contains("hit") || e.target.classList.contains("missed")) return;
         const coords = createCoords(e);
         computerPlayer.attackTheShip(coords);
-        updateDisplay("computer-board", coords, computerPlayer.getGameBoard());
+        syncGUI("computer-board", computerPlayer.getGameBoard());
         isPlayerTurn = false;
         if (computerPlayer.checkWinner()) 
             return displayWinner("Player");
@@ -37,14 +37,23 @@ export default function GameController(playerShips, computerShips) {
 
     const computerAttack = () => {
         const coords = createCoords();
-        humanPlayer.attackTheShip(coords);
-        updateDisplay("player-board", coords, humanPlayer.getGameBoard());
+        const floodedCells = humanPlayer.attackTheShip(coords);
+        computerPlayer.removeDeadCoords(floodedCells);
+        syncGUI("player-board", humanPlayer.getGameBoard());
         if (humanPlayer.checkWinner())
             return displayWinner("Computer");
         isPlayerTurn = true;
         displayMessage("Your Turn...");
     }
 
+    const syncGUI = (type, board) => {
+        for (let r = 1; r <= 10; r++) {
+            for (let c = 1; c <= 10; c++) {
+                updateDisplay(type, [r, c], board);
+            }
+        }
+    }
+    
     const start = () => {
         displayGameBoard("player-board", humanPlayer.getGameBoard());
         displayGameBoard("computer-board", computerPlayer.getGameBoard(), playRound);

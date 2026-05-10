@@ -23,7 +23,18 @@ export default class Player {
 
     // These methods will be used only after the game begins
     attackTheShip(coords) {
-        this.#board.receiveAttack(coords);
+        return this.#board.receiveAttack(coords);        
+    }
+
+    removeDeadCoords(floodedCoords) {
+        floodedCoords.forEach(([deadX, deadY]) => {
+            const index = this.#sorted.findIndex(([x, y]) => x === deadX && y === deadY);
+            
+            if (index !== -1) {
+                this.#sorted[index] = this.#sorted[this.#sorted.length - 1];
+                this.#sorted.pop();
+            }
+        });
     }
 
     checkWinner() {
@@ -39,5 +50,9 @@ export default class Player {
         const coords = this.#sorted[index];
         this.#sorted[index] = this.#sorted.pop();
         return coords;
+    }
+
+    isShipSunked(coords) {
+        return this.#board.isShipSunk(coords);
     }
 }

@@ -38,17 +38,19 @@ export default class Gameboard {
     const temp = this.#board[coords[0] - 1][coords[1] - 1];
     if (temp === null) {
       this.#board[coords[0] - 1][coords[1] - 1] = -1;
-    } else if (temp === 0) {
-      return;
+      return [];
+    } else if (temp === 0 || temp === -1) {
+      return [];
     } else {
       temp.hit();
       this.#board[coords[0] - 1][coords[1] - 1] = 0;
-      this.#hitNearbyCoords(coords, temp);
-      if (temp.isSunk()) return this.#totalShips--;
+      if (temp.isSunk()) this.#totalShips--;
+      return this.#hitNearbyCoords(coords, temp);
     }
   }
 
   #hitNearbyCoords(coords, ship) {
+    const storage = [];
     if (!ship.isSunk()) {
       const diagOffsets = [[-1, -1], [1, -1], [-1, 1], [1, 1]];
       for (const [dx, dy] of diagOffsets) {
@@ -56,9 +58,10 @@ export default class Gameboard {
         const y = (coords[1] - 1) + dy;
         if (!this.#checkBounds([x + 1, y + 1]) && this.#board[x][y] === null) {
           this.#board[x][y] = -1;
+          storage.push([x + 1, y + 1]);
         }
       }
-      return;
+      return storage;
     }
 
     const visited = [];
@@ -80,6 +83,7 @@ export default class Gameboard {
           const cell = this.#board[x][y];
           if (cell === null) {
             this.#board[x][y] = -1;
+            storage.push([x + 1, y + 1]);
           } else if (cell === 0) {
             const sunkPiece = `${x},${y}`;
             if (!visited.includes(sunkPiece)) {
@@ -106,6 +110,7 @@ We traverse each coord and do the following:
 Now after traversing all values or current coord, we move to next coord and repeat from start! 
 If the queue is empty, then that is the terminating condition because all the zeros (coords) of that ship are inside visited!
 */
+    return storage;
   }
 
   #checkBounds(coords, length = 1, axis = "x") {
@@ -125,6 +130,13 @@ If the queue is empty, then that is the terminating condition because all the ze
   isEmpty() {
     if (this.#totalShips === 0) return true;
     return false;
+  }
+
+  isShipSunk(coords) {
+    if(this.#checkBounds(coords)) return;
+    const ship = this.#board[coords[0] - 1][coords[1] - 1];
+    if (ship !== null && ship !== 0 && ship !== -1) 
+      return ship.isSunk();
   }
 }
 
