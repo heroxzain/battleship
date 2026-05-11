@@ -298,4 +298,10 @@ describe("Testing if all ships are sunk or not", () => {
     board.receiveAttack([5, 5]);
     expect(board.isEmpty()).toBe(true);
   });
+
+  test("Working of the Ships List by sinking a ship", () => {
+    board.placeShip([5, 5]);
+    board.receiveAttack([5, 5]);
+    expect(board.allShips()[0].isSunk()).toBe(true);
+  });
 });

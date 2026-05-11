@@ -24,4 +24,8 @@ export default class Ship {
     size() {
         return this.#length;
     }
+
+    fullHP() {
+        return this.#health === this.#length;
+    }
 }

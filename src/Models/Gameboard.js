@@ -1,8 +1,10 @@
 import Ship from "./Ship";
 export default class Gameboard {
+  #ships;
   #board;
   #totalShips;
   constructor() {
+    this.#ships = [];
     this.#totalShips = 0;
     this.#board = [];
     for (let i = 0; i < 10; i++) {
@@ -24,11 +26,13 @@ export default class Gameboard {
       for (let i = 0; i < length; i++) {
         this.#board[coords[0] - 1][coords[1] - 1 + i] = ship;
       }
+      this.#ships.push(ship);
       this.#totalShips++;
     } else if (axis === "y") {
       for (let i = 0; i < length; i++) {
         this.#board[coords[0] - 1 + i][coords[1] - 1] = ship;
       }
+      this.#ships.push(ship);
       this.#totalShips++;
     }
   }
@@ -128,15 +132,11 @@ If the queue is empty, then that is the terminating condition because all the ze
   }
 
   isEmpty() {
-    if (this.#totalShips === 0) return true;
-    return false;
+    return this.#totalShips === 0;
   }
 
-  isShipSunk(coords) {
-    if(this.#checkBounds(coords)) return;
-    const ship = this.#board[coords[0] - 1][coords[1] - 1];
-    if (ship !== null && ship !== 0 && ship !== -1) 
-      return ship.isSunk();
+  allShips() {
+    return this.#ships;
   }
 }
 

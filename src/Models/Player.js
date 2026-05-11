@@ -52,7 +52,7 @@ export default class Player {
         return coords;
     }
 
-    isShipSunked(coords) {
-        return this.#board.isShipSunk(coords);
+    getShips() {
+        return this.#board.allShips();
     }
 }
