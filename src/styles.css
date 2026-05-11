@@ -186,3 +186,23 @@ footer {
   font-size: 0.875rem;
   box-shadow: 0 -2px 5px rgba(0,0,0,0.05); 
 }
+
+.game-over-fade {
+  opacity: 0.4;
+  filter: blur(1px);
+  pointer-events: none;
+}
+
+.status-win {
+  color: var(--color-ship); 
+  font-size: 2rem;
+  font-weight: bold;
+  text-shadow: 0 0 10px rgba(46, 204, 113, 0.5); 
+}
+
+.status-lose {
+  color: var(--color-hit);
+  font-size: 2rem;
+  font-weight: bold;
+  text-shadow: 0 0 10px rgba(231, 76, 60, 0.5);
+}

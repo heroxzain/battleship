@@ -69,10 +69,23 @@ function updateDisplay(type, coords, gameboard) {
 }
 
 function displayWinner(name) {
-    if (name === "Player")
-        displayMessage("You Won!");
-    else 
-        displayMessage("You Lose!");
+    const statusDisplay = document.querySelector("#game-status");
+    const boardsContainer = document.querySelector(".boards-container");
+    if (name === "Player") {
+        displayMessage(" YOU WON! ");
+        statusDisplay.classList.add("status-win");
+    } else {
+        displayMessage(" YOU LOSE! ");
+        statusDisplay.classList.add("status-lose");
+    }
+    boardsContainer.classList.add("game-over-fade");    
+}
+
+function resetEndgameUI() {
+    const statusDisplay = document.querySelector("#game-status");
+    const boardsContainer = document.querySelector(".boards-container");
+    statusDisplay.classList.remove("status-win", "status-lose");
+    boardsContainer.classList.remove("game-over-fade");
 }
 
 function displayMessage(msg) {
@@ -85,5 +98,6 @@ export {
     displayGameBoard, 
     updateDisplay, 
     displayWinner,
-    displayMessage
+    displayMessage,
+    resetEndgameUI
 };

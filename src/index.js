@@ -1,5 +1,10 @@
 import "./styles.css";
-import { createGrid, displayPreview, displayMessage } from "./Views/display";
+import { 
+    createGrid, 
+    displayPreview, 
+    displayMessage,
+    resetEndgameUI
+} from "./Views/display";
 import GameController from "./Controllers/GameController";
 import GenerateShips from "./Controllers/GenerateShips";
 
@@ -15,6 +20,7 @@ startBtn.addEventListener("click", (e) => {
         e.target.textContent = "Start";
         displayMessage("Place your ships to begin!");
         randomizeBtn.disabled = false;
+        resetEndgameUI();
         createGrid();
         displayPreview(playerShips);
     } else {
