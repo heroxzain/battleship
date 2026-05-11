@@ -3,7 +3,8 @@ import {
     createGrid, 
     displayPreview, 
     displayMessage,
-    resetEndgameUI
+    resetEndgameUI,
+    displayShips
 } from "./Views/display";
 import GameController from "./Controllers/GameController";
 import GenerateShips from "./Controllers/GenerateShips";
@@ -13,6 +14,7 @@ let gameStart = false;
 
 createGrid();
 displayPreview(playerShips);
+displayShips("player-ships", playerShips);
 
 const startBtn = document.querySelector("#start-btn");
 startBtn.addEventListener("click", (e) => {
@@ -23,6 +25,7 @@ startBtn.addEventListener("click", (e) => {
         resetEndgameUI();
         createGrid();
         displayPreview(playerShips);
+        displayShips("player-ships", playerShips);
     } else {
         e.target.textContent = "Restart";
         displayMessage("Your Turn...");
@@ -30,6 +33,7 @@ startBtn.addEventListener("click", (e) => {
 
         // const playerShips = getShips(); // I need getShips to get the ships the user placed by drag and drop
         const computerShips = GenerateShips();
+        displayShips("computer-ships", computerShips);
         const game = GameController(playerShips, computerShips);
         game.start();
     }
