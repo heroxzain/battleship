@@ -68,7 +68,7 @@ function updateDisplay(type, coords, gameboard) {
     }
 }
 
-function displayWinner(name) {
+function displayWinner(name, board) {
     const statusDisplay = document.querySelector("#game-status");
     const boardsContainer = document.querySelector(".boards-container");
     if (name === "Player") {
@@ -78,7 +78,19 @@ function displayWinner(name) {
         displayMessage(" YOU LOSE! ");
         statusDisplay.classList.add("status-lose");
     }
-    boardsContainer.classList.add("game-over-fade");    
+    boardsContainer.classList.add("game-over-fade");
+    revealEnemyShips(board);
+}
+
+function revealEnemyShips(gameboard) {
+    for(let i = 0; i < 10; i++) {
+        for (let j = 0; j < 10; j++) {
+            const cell = document.querySelector(`#computer-board [data-row="${i}"][data-column="${j}"]`);
+            const type = gameboard[i][j];
+            if (type !== -1 && type !== 0 && type !== null) 
+                cell.classList.add("ship");
+        }
+    }
 }
 
 function resetEndgameUI() {

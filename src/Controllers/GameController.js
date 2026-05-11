@@ -30,7 +30,7 @@ export default function GameController(playerShips, computerShips) {
         syncGUI("computer-board", computerPlayer.getGameBoard());
         isPlayerTurn = false;
         if (computerPlayer.checkWinner()) 
-            return displayWinner("Player");
+            return displayWinner("Player", computerPlayer.getGameBoard());
         displayMessage("Computer is thinking...");
         setTimeout(() => { computerAttack(); }, 1000);
     };
@@ -41,7 +41,7 @@ export default function GameController(playerShips, computerShips) {
         computerPlayer.removeDeadCoords(floodedCells);
         syncGUI("player-board", humanPlayer.getGameBoard());
         if (humanPlayer.checkWinner())
-            return displayWinner("Computer");
+            return displayWinner("Computer", computerPlayer.getGameBoard());
         isPlayerTurn = true;
         displayMessage("Your Turn...");
     }
