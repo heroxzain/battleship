@@ -18,6 +18,18 @@
   --header: 4rem;
   --footer: 2.5rem;
   --main: calc(100vh - calc(var(--header) + var(--footer)));
+
+  --Cruiser: #3C4042;
+  --BattleShip: #848B8E;
+  --Destroyer: #4F6D7A;
+  --Submarine: #6B705C;
+  --PatrolBoat: #A0522D;
+
+  /* --Cruiser: #2ECC71;      
+  --BattleShip: #1ABC9C;   
+  --Destroyer: #3498DB;    
+  --Submarine: #9B59B6;    
+  --PatrolBoat: #F1C40F;    */
 }
 
 /* :root {
@@ -132,7 +144,7 @@ main {
   cursor: crosshair;
 }
 
-.game-board div.ship {
+.game-board .ship {
   background-color: var(--color-ship);
 }
 
@@ -244,3 +256,9 @@ footer {
 .mini-ship.sunk .mini-cell {
   background-color: var(--color-miss);
 }
+
+.game-board .Cruiser { background-color: var(--Cruiser); }
+.game-board .BattleShip { background-color: var(--BattleShip); }
+.game-board .Destroyer { background-color: var(--Destroyer); }
+.game-board .Submarine { background-color: var(--Submarine); }
+.game-board .PatrolBoat { background-color: var(--PatrolBoat); }

@@ -25,9 +25,23 @@ function displayPreview(ships) {
             const col = ship.axis === "x" ? (y - 1) + i : (y - 1);
             
             const cell = document.querySelector(`#player-board [data-row="${row}"][data-column="${col}"]`);
-            if (cell) cell.classList.add("ship");
+            if (cell) {
+                cell.draggable = true;
+                cell.classList.add("ship", shipColor(ship.length));
+            }
         }
     });
+}
+
+function shipColor(size) {
+    switch(size) {
+        case 5: return "Cruiser";
+        case 4: return "BattleShip";
+        case 3: return "Destroyer";
+        case 2: return "Submarine";
+        case 1: return "PatrolBoat";
+        default: return "ship";
+    }
 }
 
 function createCell(type, i, j, player = false) {
@@ -39,7 +53,7 @@ function createCell(type, i, j, player = false) {
     else if (type === 0) 
         div.classList.add("hit");
     else if (type !== null && player)
-        div.classList.add("ship");
+        div.classList.add(shipColor(type.size()));
     return div;
 }
 
@@ -88,7 +102,7 @@ function revealEnemyShips(gameboard) {
             const cell = document.querySelector(`#computer-board [data-row="${i}"][data-column="${j}"]`);
             const type = gameboard[i][j];
             if (type !== -1 && type !== 0 && type !== null) 
-                cell.classList.add("ship");
+                cell.classList.add(shipColor());
         }
     }
 }

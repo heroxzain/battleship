@@ -10,4 +10,3 @@ Live Link: https://heroxzain.github.io/battleship
 * feat: Implement drag and drop 
 * feat: Impelement two players mode
 * feat: Implemnet smart AI
-* fun: add different colors to different ships sizes
