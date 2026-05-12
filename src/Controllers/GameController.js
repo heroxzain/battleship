@@ -3,6 +3,7 @@ import {
     createGrid,
     displayGameBoard, 
     displayMessage, 
+    displayRemainingShips, 
     displayWinner, 
     updateDisplay 
 } from "../Views/display";
@@ -28,6 +29,7 @@ export default function GameController(playerShips, computerShips) {
         const coords = createCoords(e);
         computerPlayer.attackTheShip(coords);
         syncGUI("computer-board", computerPlayer.getGameBoard());
+        displayRemainingShips("computer-ships", computerPlayer.getShips());
         isPlayerTurn = false;
         if (computerPlayer.checkWinner()) 
             return displayWinner("Player", computerPlayer.getGameBoard());
@@ -40,6 +42,7 @@ export default function GameController(playerShips, computerShips) {
         const floodedCells = humanPlayer.attackTheShip(coords);
         computerPlayer.removeDeadCoords(floodedCells);
         syncGUI("player-board", humanPlayer.getGameBoard());
+        displayRemainingShips("player-ships", humanPlayer.getShips());
         if (humanPlayer.checkWinner())
             return displayWinner("Computer", computerPlayer.getGameBoard());
         isPlayerTurn = true;

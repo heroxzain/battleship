@@ -98,10 +98,52 @@ function resetEndgameUI() {
     const boardsContainer = document.querySelector(".boards-container");
     statusDisplay.classList.remove("status-win", "status-lose");
     boardsContainer.classList.remove("game-over-fade");
+    document.querySelector("#player-ships").innerHTML = "";
+    document.querySelector("#computer-ships").innerHTML = "";
 }
 
 function displayMessage(msg) {
     document.querySelector("#game-status").textContent = msg;
+}
+
+function displayShips(type, ships) {
+    const container = document.querySelector(`#${type}`);
+    container.innerHTML = "";
+
+    ships.forEach((ship, index) => {
+        const shipBox = document.createElement("div");
+        shipBox.classList.add("mini-ship");
+
+        for (let i = 0; i < ship.length; i++) {
+            const piece = document.createElement("span");
+            piece.classList.add("mini-cell");
+            shipBox.appendChild(piece);
+        }
+        container.appendChild(shipBox);
+    });
+}
+
+function displayRemainingShips(type, ships) {
+    const container = document.querySelector(`#${type}`);
+    container.innerHTML = "";
+
+    ships.forEach(ship => {
+        const miniShip = document.createElement("div");
+        miniShip.classList.add("mini-ship");
+        if (ship.isSunk()) {
+            miniShip.classList.add("sunk");
+        }
+
+        for (let i = ship.size(); i > 0; i--) {
+            const miniCell = document.createElement("span");
+            miniCell.classList.add("mini-cell");
+            if (i > ship.health() && !ship.fullHP()) {
+                miniCell.classList.add("hit");
+            }
+            miniShip.appendChild(miniCell);
+        }
+        container.appendChild(miniShip);
+    });
 }
 
 export {
@@ -111,5 +153,7 @@ export {
     updateDisplay, 
     displayWinner,
     displayMessage,
-    resetEndgameUI
+    resetEndgameUI,
+    displayShips,
+    displayRemainingShips
 };
