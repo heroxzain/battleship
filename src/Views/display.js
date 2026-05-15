@@ -18,7 +18,7 @@ function createGrid() {
 }
 
 function displayPreview(ships) {
-    ships.forEach(ship => {
+    ships.forEach((ship, index) => {
         const [x, y] = ship.coords;
         for (let i = 0; i < ship.length; i++) {
             const row = ship.axis === "y" ? (x - 1) + i : (x - 1);
@@ -28,6 +28,7 @@ function displayPreview(ships) {
             if (cell) {
                 cell.draggable = true;
                 cell.classList.add("ship", shipColor(ship.length));
+                cell.dataset.index = index;
             }
         }
     });
@@ -53,7 +54,7 @@ function createCell(type, i, j, player = false) {
     else if (type === 0) 
         div.classList.add("hit");
     else if (type !== null && player)
-        div.classList.add(shipColor(type.size()));
+        div.classList.add("ship", shipColor(type.size()));
     return div;
 }
 
