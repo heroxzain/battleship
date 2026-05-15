@@ -262,3 +262,16 @@ footer {
 .game-board .Destroyer { background-color: var(--Destroyer); }
 .game-board .Submarine { background-color: var(--Submarine); }
 .game-board .PatrolBoat { background-color: var(--PatrolBoat); }
+
+.hover-valid {
+  background-color: rgba(46, 204, 113, 0.6) !important; /* Translucent Green */
+  outline: 2px dashed #2ECC71;
+  outline-offset: -2px;
+}
+
+.hover-invalid {
+  background-color: rgba(231, 76, 60, 0.6) !important; /* Translucent Red */
+  outline: 2px dashed #E74C3C;
+  outline-offset: -2px;
+  cursor: not-allowed;
+}

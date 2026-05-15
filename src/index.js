@@ -17,7 +17,7 @@ let gameStatus = false;
 createGrid();
 displayPreview(playerShips);
 displayShips("player-ships", playerShips);
-newShips(playerShips, updateShips);
+newShips(playerShips, updateShips, validateSingleShip);
 
 const startBtn = document.querySelector("#start-btn");
 startBtn.addEventListener("click", (e) => {
@@ -47,7 +47,7 @@ randomizeBtn.addEventListener("click", (e) => {
     playerShips = GenerateShips();
     createGrid();
     displayPreview(playerShips);
-    newShips(playerShips, updateShips);
+    newShips(playerShips, updateShips, validateSingleShip);
 });
 
 function updateShips(newCoords, index) {
