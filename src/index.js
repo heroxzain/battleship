@@ -17,11 +17,13 @@ let gameStatus = false;
 createGrid();
 displayPreview(playerShips);
 displayShips("player-ships", playerShips);
-newShips(playerShips, updateShips, validateSingleShip);
+
+const dragManager = newShips(() => playerShips, updateShips, validateSingleShip);
 
 const startBtn = document.querySelector("#start-btn");
 startBtn.addEventListener("click", (e) => {
     if (gameStatus) {
+        // --- GAME RESTARTING (Setup Phase) ---
         e.target.textContent = "Start";
         displayMessage("Place your ships to begin!");
         randomizeBtn.disabled = false;
@@ -29,7 +31,9 @@ startBtn.addEventListener("click", (e) => {
         createGrid();
         displayPreview(playerShips);
         displayShips("player-ships", playerShips);
+        dragManager.enable();
     } else {
+        // --- GAME STARTING (Combat Phase) ---
         e.target.textContent = "Restart";
         displayMessage("Your Turn...");
         randomizeBtn.disabled = true;
@@ -38,6 +42,7 @@ startBtn.addEventListener("click", (e) => {
         displayShips("computer-ships", computerShips);
         const game = GameController(playerShips, computerShips);
         game.start();
+        dragManager.disable();
     }
     gameStatus = !gameStatus;
 });
@@ -47,17 +52,19 @@ randomizeBtn.addEventListener("click", (e) => {
     playerShips = GenerateShips();
     createGrid();
     displayPreview(playerShips);
-    newShips(playerShips, updateShips, validateSingleShip);
 });
 
-function updateShips(newCoords, index) {
+function updateShips(newCoords, index, axis) {
     const targetShip = playerShips[index];
     const originalCoords = [...targetShip.coords]; 
+    const originalAxis = targetShip.axis;
     targetShip.coords = newCoords;
+    targetShip.axis = axis;
 
     const isValid = validateSingleShip(targetShip, playerShips, index);
     if (!isValid) { 
         targetShip.coords = originalCoords; 
+        targetShip.axis = originalAxis;
         return; 
     }
     createGrid();

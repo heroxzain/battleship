@@ -1,7 +1,8 @@
-export default function newShips(playerShips, updateShipsCallback, validateCallback) {
+export default function newShips(getPlayerShips, updateShipsCallback, validateCallback) {
     const board = document.querySelector("#player-board");
     let grabbedSegmentIndex = 0;
     let draggedShipIndex = null;
+    let isEnabled = true; 
 
     const clearHighlights = () => {
         const highlighted = board.querySelectorAll('.hover-valid, .hover-invalid');
@@ -10,10 +11,11 @@ export default function newShips(playerShips, updateShipsCallback, validateCallb
         });
     };
 
-    board.addEventListener('mousedown', (e) => {
+    function mouseDown(e) {
+        if (!isEnabled) return;
         if (e.target.classList.contains('ship')) {
             draggedShipIndex = parseInt(e.target.dataset.index);
-            const ship = playerShips[draggedShipIndex];
+            const ship = getPlayerShips()[draggedShipIndex];
             
             const clickedRow = parseInt(e.target.dataset.row);
             const clickedCol = parseInt(e.target.dataset.column);
@@ -26,15 +28,17 @@ export default function newShips(playerShips, updateShipsCallback, validateCallb
                 grabbedSegmentIndex = clickedCol - originCol;
             }
         }
-    });
+    }
 
-    board.addEventListener('dragstart', (e) => {
+    function dragStart(e) {
+        if (!isEnabled) { e.preventDefault(); return; }
         e.dataTransfer.setData("shipIndex", draggedShipIndex);
         e.dataTransfer.setData("grabOffset", grabbedSegmentIndex);
         e.dataTransfer.effectAllowed = "move";
-    });
+    }
 
-    board.addEventListener('dragover', (e) => {
+    function dragOver(e) {
+        if (!isEnabled) return;
         e.preventDefault();
         if (e.target.dataset.row === undefined) return;
 
@@ -42,15 +46,13 @@ export default function newShips(playerShips, updateShipsCallback, validateCallb
 
         const hoverRow = parseInt(e.target.dataset.row);
         const hoverCol = parseInt(e.target.dataset.column);
-        const ship = playerShips[draggedShipIndex];
+        const ship = getPlayerShips()[draggedShipIndex];
 
         let newX = ship.axis === 'y' ? hoverRow - grabbedSegmentIndex + 1 : hoverRow + 1;
         let newY = ship.axis === 'x' ? hoverCol - grabbedSegmentIndex + 1 : hoverCol + 1;
 
         const mockShip = { coords: [newX, newY], length: ship.length, axis: ship.axis };
-        
-        const isValid = validateCallback(mockShip, playerShips, draggedShipIndex);
-        
+        const isValid = validateCallback(mockShip, getPlayerShips(), draggedShipIndex);
         const previewClass = isValid ? 'hover-valid' : 'hover-invalid';
 
         for (let i = 0; i < ship.length; i++) {
@@ -60,15 +62,17 @@ export default function newShips(playerShips, updateShipsCallback, validateCallb
             const cell = document.querySelector(`#player-board [data-row="${targetRow}"][data-column="${targetCol}"]`);
             if (cell) cell.classList.add(previewClass);
         }
-    });
+    }
 
-    board.addEventListener('dragleave', (e) => {
+    function dragLeave(e) {
+        if (!isEnabled) return;
         if (!board.contains(e.relatedTarget)) {
             clearHighlights();
         }
-    });
+    }
 
-    board.addEventListener('drop', (e) => {
+    function drop(e) {
+        if (!isEnabled) return;
         e.preventDefault();
         clearHighlights();
         
@@ -77,12 +81,37 @@ export default function newShips(playerShips, updateShipsCallback, validateCallb
         
         const dropRow = parseInt(e.target.dataset.row);
         const dropCol = parseInt(e.target.dataset.column);
-        const ship = playerShips[shipIndex];
+        const ship = getPlayerShips()[shipIndex];
 
         let newX = ship.axis === 'y' ? dropRow - offset + 1 : dropRow + 1;
         let newY = ship.axis === 'x' ? dropCol - offset + 1 : dropCol + 1;
 
-        updateShipsCallback([newX, newY], shipIndex);
+        updateShipsCallback([newX, newY], shipIndex, ship.axis);
         draggedShipIndex = null;
-    });
+    }
+
+    function click(e) {
+        if (!isEnabled) return;
+        if (e.target.classList.contains('ship')) {
+            const index = parseInt(e.target.dataset.index);
+            const ship = getPlayerShips()[index];
+            ship.axis = ship.axis === "x" ? "y" : "x";
+            updateShipsCallback(ship.coords, index, ship.axis); 
+        }
+    }
+
+    board.addEventListener('mousedown', mouseDown);
+    board.addEventListener('dragstart', dragStart);
+    board.addEventListener('dragover', dragOver);
+    board.addEventListener('dragleave', dragLeave);
+    board.addEventListener('drop', drop);
+    board.addEventListener("click", click);
+
+    return {
+        enable: () => isEnabled = true,
+        disable: () => {
+            isEnabled = false;
+            clearHighlights();
+        }
+    };
 }
