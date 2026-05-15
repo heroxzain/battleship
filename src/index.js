@@ -30,7 +30,6 @@ startBtn.addEventListener("click", (e) => {
         displayPreview(playerShips);
         displayShips("player-ships", playerShips);
     } else {
-        // Restart the game!
         e.target.textContent = "Restart";
         displayMessage("Your Turn...");
         randomizeBtn.disabled = true;
@@ -48,6 +47,7 @@ randomizeBtn.addEventListener("click", (e) => {
     playerShips = GenerateShips();
     createGrid();
     displayPreview(playerShips);
+    newShips(playerShips, updateShips);
 });
 
 function updateShips(newCoords, index) {
