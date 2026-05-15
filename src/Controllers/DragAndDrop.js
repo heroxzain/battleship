@@ -95,8 +95,8 @@ export default function newShips(getPlayerShips, updateShipsCallback, validateCa
         if (e.target.classList.contains('ship')) {
             const index = parseInt(e.target.dataset.index);
             const ship = getPlayerShips()[index];
-            ship.axis = ship.axis === "x" ? "y" : "x";
-            updateShipsCallback(ship.coords, index, ship.axis); 
+            const proposedAxis = ship.axis === "x" ? "y" : "x";
+            updateShipsCallback(ship.coords, index, proposedAxis); 
         }
     }
 
