@@ -2,8 +2,10 @@ import Gameboard from "./Gameboard";
 export default class Player {
     #board;
     #sorted;
+    #targetQueue;
     constructor(ships) {
         this.#sorted = [];
+        this.#targetQueue = [];
         for (let x = 1; x <= 10; x++) {
             for (let y = 1; y <= 10; y++) {
                 this.#sorted.push([x, y]);
@@ -54,5 +56,34 @@ export default class Player {
 
     getShips() {
         return this.#board.allShips();
+    }
+
+    generateComputerAttack() {
+        while (this.#targetQueue.length > 0) {
+            const [tx, ty] = this.#targetQueue.shift();
+            const index = this.#sorted.findIndex(([x, y]) => x === tx && y === ty);
+            if (index !== -1) {
+                const coords = this.#sorted[index];
+                this.#sorted[index] = this.#sorted.pop();
+                return coords;
+            }
+        }
+        
+        const index = Math.floor(Math.random() * (this.#sorted.length - 1));
+        const coords = this.#sorted[index];
+        this.#sorted[index] = this.#sorted.pop();
+        return coords;
+    }
+
+    enqueueTargets(coords) {
+        const [x, y] = coords;
+        const offsets = [[0, -1], [0, 1], [-1, 0], [1, 0]];
+        offsets.forEach(([dx, dy]) => {
+            const nx = x + dx;
+            const ny = y + dy;
+            if (nx >= 1 && nx <= 10 && ny >= 1 && ny <= 10) {
+                this.#targetQueue.push([nx, ny]);
+            }
+        });
     }
 }

@@ -52,6 +52,7 @@ export default function GameController(playerShips, computerShips) {
             return displayWinner("Computer", computerPlayer.getGameBoard());
         const isHit = humanPlayer.getGameBoard()[coords[0] - 1][coords[1] - 1] === 0;
         if (isHit) {
+            computerPlayer.enqueueTargets(coords);
             displayMessage("Enemy Hit your ship! Computer is thinking again...");
             setTimeout(() => { computerAttack(); }, 1000);
             return; 
